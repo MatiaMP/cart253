@@ -23,7 +23,7 @@ let mrFurious = {
   }
 }
 
-  let sky = {
+let sky = {
   // Colour
   fill: {
     r: 160,
@@ -64,4 +64,10 @@ function draw() {
   fill(mrFurious.fill.r, mrFurious.fill.g, mrFurious.fill.b);
   ellipse(mrFurious.x, mrFurious.y, mrFurious.size);
   pop();
+
+  //draw bird
+  push();
+  noStroke();
+  fill(255,255,20);
+  ellipse(mouseX,mouseY,50);
 }
