@@ -17,9 +17,16 @@ function setup() {
 
 
 /**
- * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
+ * sets the background & other elements of the drawing
 */
 function draw() {
 background("beige");
+
+drawFace();
+drawEyes();
+drawNose();
+drawMouth();
+drawEyebrows();
+drawMoustache();
 
 }
