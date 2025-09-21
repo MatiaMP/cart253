@@ -40,3 +40,13 @@ function drawFace(){
     pop();
 
 }
+
+// draw Eyes
+
+function drawEyes(){
+    push();
+    fill("white");
+    ellipse(300,550,40,20);
+    ellipse(500,550,40,20);
+    pop();
+}
