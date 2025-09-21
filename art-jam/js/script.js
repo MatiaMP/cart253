@@ -20,7 +20,7 @@ function setup() {
  * sets the background & other elements of the drawing
 */
 function draw() {
-background("beige");
+background("blue");
 
 drawFace();
 drawEyes();
@@ -28,5 +28,15 @@ drawNose();
 drawMouth();
 drawEyebrows();
 drawMoustache();
+
+}
+
+// draw Face
+
+function drawFace(){
+    push();
+    fill("#FFDDD4");
+    ellipse(400, 600, 400, 550);
+    pop();
 
 }
