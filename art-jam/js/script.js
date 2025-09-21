@@ -9,10 +9,10 @@
 "use strict";
 
 /**
- * OH LOOK I DIDN'T DESCRIBE SETUP!!
+ * create the canvas
 */
 function setup() {
-
+    createCanvas(800, 1200);
 }
 
 
@@ -20,5 +20,6 @@ function setup() {
  * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
 */
 function draw() {
+background("beige");
 
 }
