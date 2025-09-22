@@ -24,9 +24,9 @@ background("blue");
 
 drawFace();
 drawEyes();
+drawEyebrows();
 drawNose();
 drawMouth();
-drawEyebrows();
 drawMoustache();
 
 }
@@ -46,7 +46,24 @@ function drawFace(){
 function drawEyes(){
     push();
     fill("white");
-    ellipse(300,550,40,20);
-    ellipse(500,550,40,20);
+    ellipse(315,550,50,30);
+    ellipse(485,550,50,30);
+    pop();
+}
+
+// draw Eyebrows
+
+function drawEyebrows(){
+    push();
+    fill("brown");
+    ellipse(315,500,80,15);
+    ellipse(485,500,80,15);
+    pop();    
+}
+
+function drawNose(){
+    push();
+    fill("#FFDDD4");
+    ellipse(400,650,60,85);
     pop();
 }
