@@ -48,6 +48,12 @@ function drawEyes(){
     fill("white");
     ellipse(315,550,50,30);
     ellipse(485,550,50,30);
+    fill("#7B3F00");
+    ellipse(315,550,25,25);
+    ellipse(485,550,25,25);
+    fill("black");
+    ellipse(315,550,10,10);
+    ellipse(485,550,10,10);
     pop();
 }
 
@@ -55,7 +61,7 @@ function drawEyes(){
 
 function drawEyebrows(){
     push();
-    fill("brown");
+    fill("#5C4033");
     ellipse(315,500,80,15);
     ellipse(485,500,80,15);
     pop();    
@@ -65,5 +71,24 @@ function drawNose(){
     push();
     fill("#FFDDD4");
     ellipse(400,650,60,85);
+    pop();
+}
+
+function drawMouth(){
+    push();
+    fill("#C98276");
+    ellipse(400,775,80,20);
+    pop();
+}
+
+function drawMoustache(){
+    push();
+    noStroke();
+    fill("#5C4033");
+    ellipse(400,750,100,25);
+    ellipse(355,755,50,25);
+    ellipse(445,755,50,25);
+    ellipse(335,765,40,25);
+    ellipse(465,765,40,25);
     pop();
 }
