@@ -22,6 +22,7 @@ function setup() {
 function draw() {
 background("blue");
 
+drawbody();
 drawFace();
 drawEyes();
 drawEyebrows();
@@ -33,6 +34,12 @@ drawHair();
 
 }
 
+
+function drawbody(){
+    push();
+    fill("black");
+    ellipse(400,1050,400,500);
+}
 // draw Face
 
 function drawFace(){
@@ -145,10 +152,55 @@ function drawHair() {
     ellipse(0, 0, 250, 50);    
     
     push();
-    translate(510, 420);       
-    rotate(radians(40));       
+    translate(85, 475);       
+    rotate(radians(-330));       
     fill("#5C4033");
-    ellipse(0, 0, 250, 50);  
+    ellipse(0, 0, 70, 30);  
     pop();
+
+    push();
+    translate(50, 471);       
+    rotate(radians(-320));       
+    fill("#5C4033");
+    ellipse(0, 0, 80, 30);  
+    pop();
+
+    push();
+    translate(20, 471);       
+    rotate(radians(-310));       
+    fill("#5C4033");
+    ellipse(0, 0, 100, 40);  
+    pop();
+
+    push();
+    translate(5, 471);       
+    rotate(radians(-300));       
+    fill("#5C4033");
+    ellipse(0, 0, 110, 30);  
+    pop();
+
+    push();
+    translate(-5, 471);       
+    rotate(radians(-300));       
+    fill("#5C4033");
+    ellipse(0, 0, 130, 30);  
+    pop();
+    
+    push();
+    translate(-20, 461);       
+    rotate(radians(-295));       
+    fill("#5C4033");
+    ellipse(0, 0, 110, 30);  
+    pop();
+
+    push();
+    translate(292, 200);       
+    rotate(radians(-330));       
+    fill("#5C4033");
+    ellipse(0, 0, 110, 30);  
+    pop();
+
+    
+
     
 }
