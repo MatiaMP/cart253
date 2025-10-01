@@ -28,6 +28,7 @@ drawEyebrows();
 drawNose();
 drawMouth();
 drawMoustache();
+drawGoatee();
 
 }
 
@@ -90,5 +91,12 @@ function drawMoustache(){
     ellipse(445,755,50,25);
     ellipse(335,765,40,25);
     ellipse(465,765,40,25);
+    pop();
+}
+
+function drawGoatee(){
+    push();
+    fill("#5C4033");
+    ellipse(400,865,100,25);
     pop();
 }
