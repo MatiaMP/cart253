@@ -112,35 +112,39 @@ function drawGoatee(){
 function drawHair() {
     push();
     translate(340, 365);       
-    rotate(radians(-25));       
+    rotate(radians(-25)); 
+    noStroke();      
     fill("#5C4033");
     ellipse(0, 0, 210, 50);    
     pop();
 
     push();
     translate(330, 380);       
-    rotate(radians(-30));       
+    rotate(radians(-30));   
+    noStroke();              
     fill("#5C4033");
     ellipse(0, 0, 220, 50); 
     pop();
 
     push();
     translate(310, 410);       
-    rotate(radians(-30));       
+    rotate(radians(-30));     
     fill("#5C4033");
     ellipse(0, 0, 250, 50);  
     pop();
 
     push();
     translate(520, 390);       
-    rotate(radians(35));       
+    rotate(radians(35));
+    noStroke();       
     fill("#5C4033");
     ellipse(0, 0, 200, 50);    
     pop();
 
     push();
     translate(510, 400);       
-    rotate(radians(40));       
+    rotate(radians(40));
+    noStroke();       
     fill("#5C4033");
     ellipse(0, 0, 220, 50);    
     pop();
@@ -200,7 +204,78 @@ function drawHair() {
     ellipse(0, 0, 110, 30);  
     pop();
 
-    
+    push();
+    fill("#5C4033");
+    ellipse(295,280,60,20);
+    pop();
 
+    push();
+    fill("#5C4033");
+    ellipse(295,290,60,20);
+    pop();
+
+    push();
+    fill("#5C4033");
+    ellipse(295,300,60,20);
+    pop();
+
+    push();
+    fill("#5C4033");
+    ellipse(295,305,60,20);
+    pop();
+
+    push();
+    fill("#5C4033");
+    ellipse(300,305,70,20);
+    pop();
+
+    push();
+    fill("#5C4033");
+    ellipse(295,315,60,20);
+    pop();
+
+    push();
+    fill("#5C4033");
+    ellipse(294,240,60,20);
+    pop();
+
+    push();
+    fill("#5C4033");
+    ellipse(294,250,60,20);
+    pop();
     
+    push();
+    fill("#5C4033");
+    ellipse(295,231,70,20);
+    pop();
+
+    push();
+    fill("#5C4033");
+    ellipse(294,220,70,20);
+    pop();
+
+    push();
+    fill("#5C4033");
+    ellipse(290,211,70,20);
+    pop();
+
+    push();
+    fill("#5C4033");
+    ellipse(290,205,70,20);
+    pop();
+
+    push();
+    fill("#5C4033");
+    ellipse(290,195,80,30);
+    pop();
+
+    push();
+    fill("#5C4033");
+    ellipse(300,270,70,20);
+    pop();
+    
+    push();
+    fill("#5C4033");
+    ellipse(300,260,70,20);
+    pop();
 }
