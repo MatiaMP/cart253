@@ -31,6 +31,7 @@ drawMouth();
 drawMoustache();
 drawGoatee();
 drawHair();
+drawEars();
 
 }
 
@@ -55,14 +56,14 @@ function drawFace(){
 function drawEyes(){
     push();
     fill("white");
-    ellipse(315,550,50,30);
-    ellipse(485,550,50,30);
+    ellipse(315,550,60,40);
+    ellipse(485,550,60,40);
     fill("#7B3F00");
-    ellipse(315,550,25,25);
-    ellipse(485,550,25,25);
+    ellipse(315,550,35,35);
+    ellipse(485,550,35,35);
     fill("black");
-    ellipse(315,550,10,10);
-    ellipse(485,550,10,10);
+    ellipse(315,550,20,20);
+    ellipse(485,550,20,20);
     pop();
 }
 
@@ -277,5 +278,23 @@ function drawHair() {
     push();
     fill("#5C4033");
     ellipse(300,260,70,20);
+    pop();
+}
+
+function drawEars(){
+    push();
+    noStroke();
+    translate(95, 220);       
+    rotate(radians(140));
+    fill("#FFDDD4");
+    ellipse(250,70,50,105);
+    pop();
+
+    push();
+    noStroke();
+    translate(480, 0);       
+    rotate(radians(140));
+    fill("#FFDDD4");
+    ellipse(265,150,50,105);
     pop();
 }
