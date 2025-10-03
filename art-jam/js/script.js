@@ -38,8 +38,9 @@ backgroundColor.fill.r += -0.1;
 backgroundColor.fill.g += -0.1;
 backgroundColor.fill.b += -0.1;
 
-drawbody();
+drawBody();
 drawFace();
+drawEyebags();
 drawEyes();
 drawEyebrows();
 drawNose();
@@ -51,14 +52,17 @@ drawEars();
 
 }
 
-
-function drawbody(){
+/**
+ * draws body
+*/
+function drawBody(){
     push();
     fill("black");
     ellipse(400,1050,400,500);
 }
-// draw Face
-
+/**
+ * draws face shape
+*/
 function drawFace(){
     push();
     fill("#FFDDD4");
@@ -67,32 +71,40 @@ function drawFace(){
 
 }
 
-// draw Eyes
-
+/**
+ * draw Eyes
+*/
 function drawEyes(){
+    //draws the eyes themselves
     push();
     fill("white");
     ellipse(315,550,60,40);
     ellipse(485,550,60,40);
-
+    //declared variables and used map for a number range (-10 to 10 so the movement stays inside the)
+    //the left eye will follow the mouse left-right
     let leftEyeOffsetX = map(mouseX, 0, width, -10, 10);
+    //the left eye will follow the mouse up-down
     let leftEyeOffsetY = map(mouseY, 0, height, -5, 5);
-
+    //the right eye will follow the mouse left-right
     let rightEyeOffsetX = map(mouseX, 0, width, -10, 10);
+    //the right eye will follow the mouse up-down
     let rightEyeOffsetY = map(mouseY, 0, height, -5, 5);
 
+    //draws the iris
     fill("#7B3F00");
     ellipse(315 + leftEyeOffsetX, 550 + leftEyeOffsetY, 35,35);
     ellipse(485 + rightEyeOffsetX, 550 + rightEyeOffsetY, 35,35);
 
+    //draws the pupil
     fill("black");
     ellipse(315 + leftEyeOffsetX, 550 + leftEyeOffsetY, 20,20);
     ellipse(485 + rightEyeOffsetX, 550 + rightEyeOffsetY,20,20);
     pop();
 }
 
-// draw Eyebrows
-
+/**
+ * draws eyebrows
+*/
 function drawEyebrows(){
     push();
     fill("#5C4033");
@@ -101,6 +113,9 @@ function drawEyebrows(){
     pop();    
 }
 
+/**
+ * draws nose
+*/
 function drawNose(){
     push();
     fill("#FFDDD4");
@@ -108,13 +123,22 @@ function drawNose(){
     pop();
 }
 
+//draws mouth with condition depending on where the mouse is on the canvas
 function drawMouth(){
     push();
     fill("#C98276");
-    ellipse(400,775,80,20);
+    // when (IF) the user's mouse is lower than half of the canvas, the mouth stays as it is
+    if(mouseY < height/2){
+        ellipse(400,775,80,30);
+    }
+    // when the user's mouse is higher than half of the canvas, the mouth opens
+    else{
+        ellipse(400,775,80,10);
+    }
     pop();
 }
 
+//draws moustache
 function drawMoustache(){
     push();
     noStroke();
@@ -127,6 +151,7 @@ function drawMoustache(){
     pop();
 }
 
+//draws goatee
 function drawGoatee(){
     push();
     fill("#5C4033");
@@ -134,6 +159,7 @@ function drawGoatee(){
     pop();
 }
 
+//draws 'strands' of hair
 function drawHair() {
     push();
     translate(340, 365);       
@@ -305,6 +331,7 @@ function drawHair() {
     pop();
 }
 
+//draws ears
 function drawEars(){
     push();
     noStroke();
@@ -322,3 +349,14 @@ function drawEars(){
     ellipse(265,150,50,105);
     pop();
 }
+
+//draws eyebags, using new function I've never used
+function drawEyebags(){
+    push();
+    stroke("#E0B0A0");
+    strokeWeight(5);
+    line(295,570,335,570);
+    line(465,570,505,570);
+    pop();
+}
+
