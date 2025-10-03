@@ -8,11 +8,23 @@
 
 "use strict";
 
+const rate = 60;
+
+let backgroundColor = {
+    fill: {
+        r: 100,
+        g: 200,
+        b: 250
+    }
+}
+
 /**
  * create the canvas
 */
 function setup() {
     createCanvas(800, 1200);
+
+    frameRate(rate);
 }
 
 
@@ -20,7 +32,11 @@ function setup() {
  * sets the background & other elements of the drawing
 */
 function draw() {
-background("blue");
+background(backgroundColor.fill.r, backgroundColor.fill.g, backgroundColor.fill.b);
+
+backgroundColor.fill.r += -0.1;
+backgroundColor.fill.g += -0.1;
+backgroundColor.fill.b += -0.1;
 
 drawbody();
 drawFace();
@@ -58,12 +74,20 @@ function drawEyes(){
     fill("white");
     ellipse(315,550,60,40);
     ellipse(485,550,60,40);
+
+    let leftEyeOffsetX = map(mouseX, 0, width, -10, 10);
+    let leftEyeOffsetY = map(mouseY, 0, height, -5, 5);
+
+    let rightEyeOffsetX = map(mouseX, 0, width, -10, 10);
+    let rightEyeOffsetY = map(mouseY, 0, height, -5, 5);
+
     fill("#7B3F00");
-    ellipse(315,550,35,35);
-    ellipse(485,550,35,35);
+    ellipse(315 + leftEyeOffsetX, 550 + leftEyeOffsetY, 35,35);
+    ellipse(485 + rightEyeOffsetX, 550 + rightEyeOffsetY, 35,35);
+
     fill("black");
-    ellipse(315,550,20,20);
-    ellipse(485,550,20,20);
+    ellipse(315 + leftEyeOffsetX, 550 + leftEyeOffsetY, 20,20);
+    ellipse(485 + rightEyeOffsetX, 550 + rightEyeOffsetY,20,20);
     pop();
 }
 
