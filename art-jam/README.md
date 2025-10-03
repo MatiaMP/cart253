@@ -10,6 +10,9 @@ This description should help the reader understand what the program is, anything
 
 > *This Art Jam is a self portrait of myself, blended with interactivity in which the eyes will follow your mouse. The mouth will also change depending on where your mouse is vertically on the canvas! The background also changes overtime.
 
+> Function I used that I never used beforehand is line().
+
+
 ## Screenshot(s)
 
 This bit should have some images of the program running so that the reader has a sense of what it looks like. For example:
