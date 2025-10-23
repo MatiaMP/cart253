@@ -23,6 +23,17 @@ const ball = {
     }
 };
 
+const ball2 = {
+    x: 200,
+    y: 20,
+    width: 10,
+    height: 10,
+    velocity: {
+        x: 0,
+        y: 2
+    }
+};
+
 // Our paddle
 const paddle = {
     x: 300,
@@ -52,6 +63,11 @@ function draw() {
 
     drawPaddle(paddle);
     drawBall(ball);
+
+    drawBall(ball2);
+    moveBall(ball2);
+
+    handleBounce(ball2, paddle);
 }
 
 /**
@@ -78,6 +94,7 @@ function handleBounce(ball, paddle) {
     if(overlap){
         ball.velocity.y *= -1;
     }
+
 }
 
 /**
