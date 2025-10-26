@@ -84,7 +84,15 @@ function draw() {
     checkTongueFlyOverlap();
     checkTongueBadFlyOverlap();
     drawScore();
+
+    if(score <= -5){
+        gameState = "gameover";
+    }
     }  
+
+    else if (gameState === "gameover"){
+        drawGameOver();
+    }
     
 }
 
@@ -115,6 +123,18 @@ function drawTitleScreen(){
     text("CLICK SPACEBAR TO START", width / 2, height / 2 + 100);
 }
 
+function drawGameOver(){
+    background("#000000");
+    fill("red");
+    textAlign(CENTER, CENTER);
+    textSize(50);
+    text("GAME OVER", width / 2, height / 2);
+    textSize(20);
+    fill("white");
+    text("YOU ATE TOO MANY BAD FLIES", width / 2, height / 2 + 60);
+    text("PRESS THE SPACEBAR TO GO BACK TO THE START SCREEN", width / 2, height / 2 + 90);
+
+}
 /**
  * Moves the fly according to its speed
  * Resets the fly if it gets all the way to the right
@@ -273,8 +293,19 @@ function mousePressed() {
 function keyPressed(){
     if(gameState === "title" && key === " "){
         gameState = "game";
+        score = 0;
+        resetFly();
+        resetBadFly();
+        
     if(!arcadeSong.isPlaying()){
         arcadeSong.loop();
     }
+    }
+
+    else if(gameState === "gameover" && key === " "){
+        gameState = "title";
+        score = 0;
+        resetFly();
+        resetBadFly();
     }
 }
