@@ -15,6 +15,9 @@
 
 "use strict";
 
+let gameState = "title";
+let arcadeSong;
+
 // Our frog
 const frog = {
     // The frog's body has a position and size
@@ -43,8 +46,6 @@ const fly = {
     speed: 3
 };
 
-let arcadeSong;
-
 function preload(){
     arcadeSong = loadSound('/assets/sounds/arcadeSong.mp3'); 
 }
@@ -57,18 +58,39 @@ function setup() {
 
     // Give the fly its first random position
     resetFly();
-
-    arcadeSong.loop();
 }
 
 function draw() {
+    if(gameState === "title"){
+        drawTitleScreen();
+    }
+
+    else if(gameState === "game"){
     background("#87ceeb");
-    moveFly();
+    moveFly();   
     drawFly();
     moveFrog();
     moveTongue();
     drawFrog();
     checkTongueFlyOverlap();
+    }  
+}
+
+
+function drawTitleScreen(){
+    background("#000000");
+    fill("green");
+    textAlign(CENTER, CENTER);
+    textSize(40);
+    text("THIS IS FROGFROGFROG", width / 2, height / 2 - 60);
+    textSize(17);
+    fill("lightgreen");
+    text("MOVE FROG WITH MOUSE, CLICK TO SHOOT TONGUE OUT AND EAT", width / 2, height /2);
+    textSize(15);
+    fill("white"); 
+    text("MOVE THE FROG WITH MOUSE, LMB (LEFT MOUSE BUTTON) TO USE TONGUE TO EAT", width / 2, height / 2 +50);
+    textSize(20);
+    text("CLICK SPACEBAR TO START", width / 2, height / 2 + 100);
 }
 
 /**
@@ -86,7 +108,7 @@ function moveFly() {
 
 /**
  * Draws the fly as a black circle
- */
+ */ 
 function drawFly() {
     push();
     noStroke();
@@ -186,5 +208,14 @@ function checkTongueFlyOverlap() {
 function mousePressed() {
     if (frog.tongue.state === "idle") {
         frog.tongue.state = "outbound";
+    }
+}
+
+function keyPressed(){
+    if(gameState === "title" && key === " "){
+        gameState = "game";
+    if(!arcadeSong.isPlaying()){
+        arcadeSong.loop();
+    }
     }
 }
