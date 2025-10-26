@@ -43,6 +43,12 @@ const fly = {
     speed: 3
 };
 
+let arcadeSong;
+
+function preload(){
+    arcadeSong = loadSound('/assets/sounds/arcadeSong.mp3'); 
+}
+
 /**
  * Creates the canvas and initializes the fly
  */
@@ -51,6 +57,8 @@ function setup() {
 
     // Give the fly its first random position
     resetFly();
+
+    arcadeSong.loop();
 }
 
 function draw() {
