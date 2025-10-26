@@ -17,6 +17,7 @@
 
 let gameState = "title";
 let arcadeSong;
+let score = 0;
 
 // Our frog
 const frog = {
@@ -46,6 +47,12 @@ const fly = {
     speed: 3
 };
 
+const badFly = {
+    x: 0,
+    y: 100,
+    size: 20,
+    speed: 2
+}
 function preload(){
     arcadeSong = loadSound('/assets/sounds/arcadeSong.mp3'); 
 }
@@ -69,11 +76,26 @@ function draw() {
     background("#87ceeb");
     moveFly();   
     drawFly();
+    moveBadFly();
+    drawBadFly();
     moveFrog();
     moveTongue();
-    drawFrog();
+    drawFrog();   
     checkTongueFlyOverlap();
+    checkTongueBadFlyOverlap();
+    drawScore();
     }  
+    
+}
+
+function drawScore(){
+     //score
+
+    fill("black");
+    textSize(15);
+    textStyle(BOLD);
+    textAlign(LEFT, TOP);
+    text("Score: " + score, 10, 10); 
 }
 
 
@@ -124,6 +146,29 @@ function resetFly() {
     fly.x = 0;
     fly.y = random(0, 300);
 }
+
+
+function moveBadFly(){
+    badFly.x += badFly.speed;
+
+    if(badFly.x > width){
+        resetBadFly();
+    }
+}
+
+function drawBadFly() {
+    push();
+    noStroke();
+    fill("red");
+    ellipse(badFly.x, badFly.y, badFly.size);
+    pop();
+}
+
+function resetBadFly(){
+    badFly.x = 0;
+    badFly.y = random(0, 300);
+}
+
 
 /**
  * Moves the frog to the mouse position on x
@@ -199,9 +244,23 @@ function checkTongueFlyOverlap() {
         resetFly();
         // Bring back the tongue
         frog.tongue.state = "inbound";
+        score++;
     }
 }
 
+function checkTongueBadFlyOverlap(){
+    const d = dist(frog.tongue.x, frog.tongue.y, badFly.x, badFly.y);
+
+    // Check if it's an overlap
+    const eaten = (d < frog.tongue.size/2 + badFly.size/2);
+    if(eaten){
+        // Reset the bad fly
+        resetBadFly();
+        // Bring back the tongue
+        frog.tongue.state = "inbound";
+        score--;
+    }
+}
 /**
  * Launch the tongue on click (if it's not launched yet)
  */
