@@ -88,12 +88,19 @@ function draw() {
     if(score <= -5){
         gameState = "gameover";
     }
-    }  
+
+    else if(score >= 5){
+        gameState = "win";
+    }
+}  
 
     else if (gameState === "gameover"){
         drawGameOver();
     }
     
+    else if (gameState === "win"){
+        drawWin();
+    }
 }
 
 function drawScore(){
@@ -131,6 +138,18 @@ function drawGameOver(){
     text("YOU ATE TOO MANY BAD FLIES", width / 2, height / 2 + 60);
     text("PRESS THE SPACEBAR TO GO BACK TO THE START SCREEN", width / 2, height /  2 + 90);
 }
+
+function drawWin(){
+    background("#000000");
+    fill("green");
+    textAlign(CENTER, CENTER);
+    textSize(50);
+    text("SUCCESS", width / 2, height / 2);
+    textSize(20);
+    fill("white");
+    text("YOU WON", width / 2, height / 2 + 60);
+    text("PRESS THE SPACEBAR TO GO BACK TO THE START SCREEN", width / 2, height /  2 + 90);
+}
 /**
  * Moves the fly according to its speed
  * Resets the fly if it gets all the way to the right
@@ -158,6 +177,7 @@ function drawFly() {
 /**
  * Resets the fly to the left with a random y
  */
+
 function resetFly() {
     fly.x = 0;
     fly.y = random(0, 300);
@@ -298,7 +318,7 @@ function keyPressed(){
     }
     }
 
-    else if(gameState === "gameover" && key === " "){
+    else if((gameState === "gameover" || gameState === "win") && key === " "){
         gameState = "title";
         score = 0;
         resetFly();
