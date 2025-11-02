@@ -25,7 +25,7 @@ const frog = {
     body: {
         x: 320,
         y: 520,
-        size: 150
+        size: 200
     },
     // The frog's tongue has a position, size, speed, and state
     tongue: {
@@ -281,6 +281,8 @@ function checkTongueFlyOverlap() {
         // Bring back the tongue
         frog.tongue.state = "inbound";
         score++;
+
+        frog.body.size -= 10;
     }
 }
 
@@ -295,6 +297,8 @@ function checkTongueBadFlyOverlap(){
         // Bring back the tongue
         frog.tongue.state = "inbound";
         score--;
+
+        frog.body.size += 25;
     }
 }
 /**
@@ -323,5 +327,6 @@ function keyPressed(){
         score = 0;
         resetFly();
         resetBadFly();
+        frog.body.size = 200;
     }
 }
