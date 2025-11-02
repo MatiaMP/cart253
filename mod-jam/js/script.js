@@ -113,16 +113,13 @@ function drawTitleScreen(){
     textAlign(CENTER, CENTER);
     textSize(40);
     text("THIS IS FROGFROGFROG", width / 2, height / 2 - 60);
-    textSize(17);
+    textSize(12);
     fill("lightgreen");
-    text("MOVE FROG WITH MOUSE, CLICK TO SHOOT TONGUE OUT AND EAT", width / 2, height /2);
-    textSize(15);
-    fill("white"); 
-    text("MOVE THE FROG WITH MOUSE, LMB (LEFT MOUSE BUTTON) TO USE TONGUE TO EAT", width / 2, height / 2 +50);
+    text("MOVE THE FROG WITH MOUSE, LMB (LEFT MOUSE BUTTON) TO USE TONGUE TO EAT", width / 2, height / 2);
     textSize(20);
     text("CLICK SPACEBAR TO START", width / 2, height / 2 + 100);
 }
-
+   
 function drawGameOver(){
     background("#000000");
     fill("red");
@@ -132,8 +129,7 @@ function drawGameOver(){
     textSize(20);
     fill("white");
     text("YOU ATE TOO MANY BAD FLIES", width / 2, height / 2 + 60);
-    text("PRESS THE SPACEBAR TO GO BACK TO THE START SCREEN", width / 2, height / 2 + 90);
-
+    text("PRESS THE SPACEBAR TO GO BACK TO THE START SCREEN", width / 2, height /  2 + 90);
 }
 /**
  * Moves the fly according to its speed
