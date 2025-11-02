@@ -18,6 +18,7 @@
 let gameState = "title";
 let arcadeSong;
 let score = 0;
+let flyMovmement = 0;
 
 // Our frog
 const frog = {
@@ -157,6 +158,12 @@ function drawWin(){
 function moveFly() {
     // Move the fly
     fly.x += fly.speed;
+
+    // Fly movement
+
+    fly.y += sin(flyMovmement) * 5;
+    flyMovmement += 0.1;
+
     // Handle the fly going off the canvas
     if (fly.x > width) {
         resetFly();
