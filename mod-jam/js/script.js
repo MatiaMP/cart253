@@ -19,6 +19,7 @@ let gameState = "title";
 let arcadeSong;
 let score = 0;
 let flyMovmement = 0;
+let frogOffsetX = 0;
 
 // Our frog
 const frog = {
@@ -218,6 +219,11 @@ function resetBadFly(){
  */
 function moveFrog() {
     frog.body.x = mouseX;
+
+    if(keyIsDown(LEFT_ARROW)) frogOffsetX -= 10;
+    if(keyIsDown(RIGHT_ARROW)) frogOffsetX += 10;
+
+    frog.body.x = mouseX + frogOffsetX;
 }
 
 /**
