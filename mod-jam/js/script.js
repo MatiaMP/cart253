@@ -334,6 +334,13 @@ function keyPressed(){
         arcadeSong.loop();
     }
     }
+    
+    else if (gameState === "game" && key === " "){
+        if(frog.tongue.state === "idle"){
+            frog.tongue.state = "outbound";
+        }
+    }
+    
 
     else if((gameState === "gameover" || gameState === "win") && key === " "){
         gameState = "title";
