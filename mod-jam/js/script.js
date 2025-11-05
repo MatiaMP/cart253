@@ -20,6 +20,8 @@ let arcadeSong;
 let score = 0;
 let flyMovmement = 0;
 let frogOffsetX = 0;
+let eatSoundEffect;
+let ewSoundEffect;
 
 // Our frog
 const frog = {
@@ -57,6 +59,10 @@ const badFly = {
 }
 function preload(){
     arcadeSong = loadSound('/assets/sounds/arcadeSong.mp3'); 
+
+    eatSoundEffect = loadSound('/assets/sounds/yumyum.mp3');
+
+    ewSoundEffect = loadSound('/assets/sounds/eww.mp3');
 }
 
 /**
@@ -65,6 +71,9 @@ function preload(){
 function setup() {
     createCanvas(640, 480);
 
+    arcadeSong.setVolume(0.2);
+    eatSoundEffect.setVolume(1.0);
+    ewSoundEffect.setVolume(1.0);
     // Give the fly its first random position
     resetFly();
 }
@@ -296,6 +305,8 @@ function checkTongueFlyOverlap() {
         score++;
 
         frog.body.size -= 10;
+
+        eatSoundEffect.play();
     }
 }
 
@@ -312,6 +323,8 @@ function checkTongueBadFlyOverlap(){
         score--;
 
         frog.body.size += 25;
+
+        ewSoundEffect.play();
     }
 }
 /**
@@ -334,7 +347,7 @@ function keyPressed(){
         arcadeSong.loop();
     }
     }
-    
+
     else if (gameState === "game" && key === " "){
         if(frog.tongue.state === "idle"){
             frog.tongue.state = "outbound";
