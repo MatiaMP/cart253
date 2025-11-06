@@ -22,21 +22,21 @@
 "use strict";
 
 let gameState = "title";
-let arcadeSong;
-let score = 0;
-let flyMovmement = 0;
-let frogOffsetX = 0;
-let eatSoundEffect;
-let ewSoundEffect;
-let eyeOffsetX;
-let eyeOffsetY;
-let eyeSize;
-let flies = [];
-let badFlies = [];
-let fly = flies[0];
-let offsetX = 0;
-let offsetY = 0;
-let pupilSize;
+let arcadeSong; // song playing in the background
+let score = 0; // start score
+let flyMovmement = 0; // movement of fly, sine wave
+let frogOffsetX = 0; // allow frog to move with mouse + arrows
+let eatSoundEffect; // good sound effect when eats broccoli
+let ewSoundEffect; // bad sound effect when eat burger
+let eyeOffsetX; // x eye offset from the frog's body
+let eyeOffsetY; // y eye offset from the frog's body
+let eyeSize; // size of frog eyes
+let flies = []; // array for good flies aka broccoli
+let badFlies = []; // array for bad flies aka burgers
+let fly = flies[0]; // first fly
+let offsetX = 0; // x offset for pupil to follow fly
+let offsetY = 0; // y offset for pupil to follow fly
+let pupilSize; // size of pupils
 
 // Our frog
 const frog = {
@@ -73,6 +73,7 @@ const frog = {
     speed: 2
 }
     */
+// Assets preloaded
 function preload(){
     arcadeSong = loadSound('/assets/sounds/arcadeSong.mp3'); 
 
@@ -86,11 +87,11 @@ function preload(){
  */
 function setup() {
     createCanvas(640, 480);
-
+    // Sound
     arcadeSong.setVolume(0.2);
     eatSoundEffect.setVolume(1.0);
     ewSoundEffect.setVolume(1.0);
-    
+    // Creates good flies aka broccoli
     for (let i = 0; i < 2; i++){
         flies.push({
             x: random(width),
@@ -99,7 +100,7 @@ function setup() {
             speed: random(2,4)
         })
     }
-
+    // Creates bad flies aka burgers
     for (let i = 0; i < 5; i++){
         badFlies.push({
             x: random(width),
@@ -109,7 +110,7 @@ function setup() {
         })
     }
 }
-
+// Draw
 function draw() {
     if(gameState === "title"){
         drawTitleScreen();
@@ -117,30 +118,32 @@ function draw() {
 
     else if(gameState === "game"){
     background("#87ceeb");
+    // Ground
     push();
     fill("darkgreen");
     noStroke();
     rect(0, height - 80, width, 80);
     pop();
+    // Clouds
     push();
     fill("white");
     ellipse(100, 80, 80, 50);
     ellipse(150, 70, 60, 40);
     ellipse(500, 50, 100, 60);
     pop();
-
+    // Move flies aka broccoli
     for (let fly of flies){
         fly.x += fly.speed;
         fly.y += sin(flyMovmement) * 0.5;
         if(fly.x > width) fly.x = 0;
     }
-
+    // Move bad flies aka burgers
     for (let badFly of badFlies){
         badFly.x += badFly.speed;
         badFly.y += sin(flyMovmement) * 0.5;
         if(badFly.x > width) badFly.x = 0;
     }
-
+    // Sine-wave movement
     flyMovmement += 0.1;
 
     for(let fly of flies){
@@ -184,6 +187,7 @@ function draw() {
     checkTongueBadFlyOverlap();
     drawScore();
 
+    // Checks if win or lose depending on score
     if(score <= -5){
         gameState = "gameover";
     }
@@ -202,6 +206,7 @@ function draw() {
     }
 }
 
+// Draws the score in the top left
 function drawScore(){
      //score
 
@@ -212,7 +217,7 @@ function drawScore(){
     text("SCORE: " + score, 10, 10); 
 }
 
-
+// Draws the first screen
 function drawTitleScreen(){
     background("lightblue");
     push();
@@ -239,7 +244,8 @@ function drawTitleScreen(){
     textSize(25);
     text("CLICK SPACEBAR TO START", width / 2, height / 2 + 130);
 }
-   
+
+// Draws the game over screen
 function drawGameOver(){
     background("#000000");
     fill("red");
@@ -252,6 +258,7 @@ function drawGameOver(){
     text("PRESS THE SPACEBAR TO GO BACK TO THE START SCREEN", width / 2, height /  2 + 90);
 }
 
+// Draws the win screen
 function drawWin(){
     background("lightgreen");
     fill("green");
@@ -387,6 +394,7 @@ function drawFrog() {
     ellipse(frog.body.x, frog.body.y, frog.body.size);
     pop();
 
+    // Draws frog eyes
     push();
     fill("white");
     eyeOffsetX = frog.body.size * 0.25;
@@ -399,10 +407,11 @@ function drawFrog() {
 
     pop();
 
+    // Draws pupils
     push();
     fill("black");
     pupilSize = eyeSize * 0.5;
-
+    // Makes pupils follow "flies", 0.05 makes it follow it slightly
     if(flies.length > 0){
         offsetX = flies[0].x - frog.body.x;
         offsetY = flies[0].y - frog.body.y;
@@ -462,6 +471,7 @@ function checkTongueBadFlyOverlap(){
 }
 /**
  * Launch the tongue on click (if it's not launched yet)
+ * You can use mouse press and spacebar to launch tongue
  */
 function mousePressed() {
     if (frog.tongue.state === "idle") {
