@@ -185,24 +185,27 @@ function drawScore(){
      //score
 
     fill("black");
-    textSize(15);
+    textSize(30);
     textStyle(BOLD);
     textAlign(LEFT, TOP);
-    text("Score: " + score, 10, 10); 
+    text("SCORE: " + score, 10, 10); 
 }
 
 
 function drawTitleScreen(){
-    background("#000000");
-    fill("green");
+    background("lightblue");
+    fill("green"); 
     textAlign(CENTER, CENTER);
-    textSize(40);
-    text("THIS IS FROGFROGFROG", width / 2, height / 2 - 60);
-    textSize(12);
-    fill("lightgreen");
-    text("MOVE THE FROG WITH MOUSE, LMB (LEFT MOUSE BUTTON) TO USE TONGUE TO EAT", width / 2, height / 2);
-    textSize(20);
-    text("CLICK SPACEBAR TO START", width / 2, height / 2 + 100);
+    textFont('Lucida Console');
+    textSize(60);
+    text("FROG ON A DIET", width / 2, height / 2 - 60);
+    textSize(15);
+    fill("darkgreen");
+    text("MOVE THE FROG WITH MOUSE OR ARROW KEYS", width / 2, height / 2);
+    text("USE LMB (LEFT MOUSE BUTTON) OR SPACEBAR TO USE TONGUE TO EAT", width / 2, height / 1.8);
+    text("FIX THE FROG'S DIET BY EATING THE BROCCOLI", width / 2, height / 1.6);
+    textSize(25);
+    text("CLICK SPACEBAR TO START", width / 2, height / 2 + 150);
 }
    
 function drawGameOver(){
@@ -213,19 +216,19 @@ function drawGameOver(){
     text("GAME OVER", width / 2, height / 2);
     textSize(20);
     fill("white");
-    text("YOU ATE TOO MANY BAD FLIES", width / 2, height / 2 + 60);
+    text("YOU RUINED THE FROG'S DIET", width / 2, height / 2 + 60);
     text("PRESS THE SPACEBAR TO GO BACK TO THE START SCREEN", width / 2, height /  2 + 90);
 }
 
 function drawWin(){
-    background("#000000");
+    background("lightgreen");
     fill("green");
     textAlign(CENTER, CENTER);
-    textSize(50);
-    text("SUCCESS", width / 2, height / 2);
+    textSize(40);
+    text("YOU FIXED THE FROG'S DIET", width / 2, height / 2);
     textSize(20);
     fill("white");
-    text("YOU WON", width / 2, height / 2 + 60);
+    text("SUCCESS", width / 2, height / 2 + 60);
     text("PRESS THE SPACEBAR TO GO BACK TO THE START SCREEN", width / 2, height /  2 + 90);
 }
 /**
