@@ -75,11 +75,11 @@ const frog = {
     */
 // Assets preloaded
 function preload(){
-    arcadeSong = loadSound('/assets/sounds/arcadeSong.mp3'); 
+    arcadeSong = loadSound('assets/sounds/arcadeSong.mp3'); 
 
-    eatSoundEffect = loadSound('/assets/sounds/yumyum.mp3');
+    eatSoundEffect = loadSound('assets/sounds/yumyum.mp3');
 
-    ewSoundEffect = loadSound('/assets/sounds/eww.mp3');
+    ewSoundEffect = loadSound('assets/sounds/eww.mp3');
 }
 
 /**
