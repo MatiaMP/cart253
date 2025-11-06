@@ -1,13 +1,19 @@
 /**
- * Frogfrogfrog
+ * Frog on a Diet
  * Matia Paki
  * 
- * A game of catching flies with your frog-tongue
+ * A game of putting a frog on a diet
+ * Every burger eaten makes the frog bigger
+ * Every broccoli eaten makes the frog smaller
+ * The goal is to make the frog stay on a good diet
+ * If the score reaches -5, the game will end as too many burgers have been eaten
+ * If the score reaches 5, the game will end as you have successfully fixed the frog's diet
+ * 
  * 
  * Instructions:
- * - Move the frog with your mouse
- * - Click to launch the tongue
- * - Catch flies
+ * - Move the frog with your mouse or with arrowkeys
+ * - Click LMB or Spacebar to launch the tongue
+ * - Eat
  * 
  * Made with p5
  * https://p5js.org/
