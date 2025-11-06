@@ -33,6 +33,10 @@ let eyeOffsetY;
 let eyeSize;
 let flies = [];
 let badFlies = [];
+let fly = flies[0];
+let offsetX = 0;
+let offsetY = 0;
+let pupilSize;
 
 // Our frog
 const frog = {
@@ -372,6 +376,22 @@ function drawFrog() {
     ellipse(frog.body.x + eyeOffsetX, frog.body.y + eyeOffsetY, eyeSize);
 
     pop();
+
+    push();
+    fill("black");
+    pupilSize = eyeSize * 0.5;
+
+    if(flies.length > 0){
+        offsetX = flies[0].x - frog.body.x;
+        offsetY = flies[0].y - frog.body.y;
+
+        ellipse(frog.body.x - eyeOffsetX + offsetX * 0.05, frog.body.y + eyeOffsetY + offsetY * 0.05, pupilSize);
+        ellipse(frog.body.x + eyeOffsetX + offsetX * 0.05, frog.body.y + eyeOffsetY + offsetY * 0.05, pupilSize);
+    }
+
+    pop();
+
+
 }
 
 /**
