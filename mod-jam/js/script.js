@@ -22,6 +22,9 @@ let flyMovmement = 0;
 let frogOffsetX = 0;
 let eatSoundEffect;
 let ewSoundEffect;
+let eyeOffsetX;
+let eyeOffsetY;
+let eyeSize;
 
 // Our frog
 const frog = {
@@ -286,6 +289,18 @@ function drawFrog() {
     fill("#00ff00");
     noStroke();
     ellipse(frog.body.x, frog.body.y, frog.body.size);
+    pop();
+
+    push();
+    fill("white");
+    eyeOffsetX = frog.body.size * 0.25;
+    eyeOffsetY = frog.body.size * -0.35;
+    eyeSize = frog.body.size * 0.2;
+
+    ellipse(frog.body.x - eyeOffsetX, frog.body.y + eyeOffsetY, eyeSize);
+
+    ellipse(frog.body.x + eyeOffsetX, frog.body.y + eyeOffsetY, eyeSize);
+
     pop();
 }
 
