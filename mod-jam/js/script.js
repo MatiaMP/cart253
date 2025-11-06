@@ -483,9 +483,9 @@ function keyPressed(){
     if(gameState === "title" && key === " "){
         gameState = "game";
         score = 0;
-        resetBadFly();
+
         
-    if(!arcadeSong.isPlaying()){
+    if(arcadeSong && !arcadeSong.isPlaying()){
         arcadeSong.loop();
     }
     }
