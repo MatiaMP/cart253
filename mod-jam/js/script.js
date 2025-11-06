@@ -25,6 +25,8 @@ let ewSoundEffect;
 let eyeOffsetX;
 let eyeOffsetY;
 let eyeSize;
+let flies = [];
+let badFlies = [];
 
 // Our frog
 const frog = {
@@ -47,19 +49,20 @@ const frog = {
 
 // Our fly
 // Has a position, size, and speed of horizontal movement
-const fly = {
+/**const fly = {
     x: 0,
     y: 200, // Will be random
     size: 10,
     speed: 3
 };
-
-const badFly = {
+*/
+/**const badFly = {
     x: 0,
     y: 100,
     size: 20,
     speed: 2
 }
+    */
 function preload(){
     arcadeSong = loadSound('/assets/sounds/arcadeSong.mp3'); 
 
@@ -77,8 +80,24 @@ function setup() {
     arcadeSong.setVolume(0.2);
     eatSoundEffect.setVolume(1.0);
     ewSoundEffect.setVolume(1.0);
-    // Give the fly its first random position
-    resetFly();
+    
+    for (let i = 0; i < 2; i++){
+        flies.push({
+            x: random(width),
+            y: random(50,300),
+            size: 10,
+            speed: random(2,4)
+        })
+    }
+
+    for (let i = 0; i < 5; i++){
+        badFlies.push({
+            x: random(width),
+            y: random(50,300),
+            size: 40,
+            speed: random(3,5)
+        })
+    }
 }
 
 function draw() {
@@ -88,10 +107,37 @@ function draw() {
 
     else if(gameState === "game"){
     background("#87ceeb");
-    moveFly();   
-    drawFly();
-    moveBadFly();
-    drawBadFly();
+
+    for (let fly of flies){
+        fly.x += fly.speed;
+        fly.y += sin(flyMovmement) * 0.5;
+        if(fly.x > width) fly.x = 0;
+    }
+
+    for (let badFly of badFlies){
+        badFly.x += badFly.speed;
+        badFly.y += sin(flyMovmement) * 0.5;
+        if(badFly.x > width) badFly.x = 0;
+    }
+
+    flyMovmement += 0.1;
+
+    for(let fly of flies){
+        push();
+        noStroke();
+        fill("black");
+        ellipse(fly.x, fly.y, fly.size);
+        pop();
+    }
+
+    for(let badFly of badFlies){
+        push();
+        noStroke();
+        fill("red");
+        ellipse(badFly.x, badFly.y, badFly.size);
+        pop();
+    }
+
     moveFrog();
     moveTongue();
     drawFrog();   
@@ -168,7 +214,7 @@ function drawWin(){
  * Moves the fly according to its speed
  * Resets the fly if it gets all the way to the right
  */
-function moveFly() {
+/**function moveFly() {
     // Move the fly
     fly.x += fly.speed;
 
@@ -183,28 +229,25 @@ function moveFly() {
     }
 }
 
-/**
  * Draws the fly as a black circle
  */ 
-function drawFly() {
+/**function drawFly() {
     push();
     noStroke();
     fill("#000000");
     ellipse(fly.x, fly.y, fly.size);
     pop();
 }
-
 /**
  * Resets the fly to the left with a random y
  */
 
-function resetFly() {
+/**function resetFly() {
     fly.x = 0;
     fly.y = random(0, 300);
 }
 
-
-function moveBadFly(){
+/**function moveBadFly(){
     badFly.x += badFly.speed;
 
     if(badFly.x > width){
@@ -224,7 +267,7 @@ function resetBadFly(){
     badFly.x = 0;
     badFly.y = random(0, 300);
 }
-
+*/
 
 /**
  * Moves the frog to the mouse position on x
@@ -308,13 +351,15 @@ function drawFrog() {
  * Handles the tongue overlapping the fly
  */
 function checkTongueFlyOverlap() {
+    for (let fly of flies){
     // Get distance from tongue to fly
     const d = dist(frog.tongue.x, frog.tongue.y, fly.x, fly.y);
     // Check if it's an overlap
     const eaten = (d < frog.tongue.size/2 + fly.size/2);
     if (eaten) {
         // Reset the fly
-        resetFly();
+        fly.x = 0;
+        fly.y = random(50,300);
         // Bring back the tongue
         frog.tongue.state = "inbound";
         score++;
@@ -323,16 +368,19 @@ function checkTongueFlyOverlap() {
 
         eatSoundEffect.play();
     }
+    }
 }
 
 function checkTongueBadFlyOverlap(){
-    const d = dist(frog.tongue.x, frog.tongue.y, badFly.x, badFly.y);
+    for (let badFly of badFlies){
+        const d = dist(frog.tongue.x, frog.tongue.y, badFly.x, badFly.y);
 
     // Check if it's an overlap
     const eaten = (d < frog.tongue.size/2 + badFly.size/2);
     if(eaten){
         // Reset the bad fly
-        resetBadFly();
+        badFly.x = 0;
+        badFly.y = random(50,300);
         // Bring back the tongue
         frog.tongue.state = "inbound";
         score--;
@@ -340,6 +388,7 @@ function checkTongueBadFlyOverlap(){
         frog.body.size += 25;
 
         ewSoundEffect.play();
+    }
     }
 }
 /**
@@ -355,7 +404,6 @@ function keyPressed(){
     if(gameState === "title" && key === " "){
         gameState = "game";
         score = 0;
-        resetFly();
         resetBadFly();
         
     if(!arcadeSong.isPlaying()){
@@ -373,8 +421,14 @@ function keyPressed(){
     else if((gameState === "gameover" || gameState === "win") && key === " "){
         gameState = "title";
         score = 0;
-        resetFly();
-        resetBadFly();
+        for(let fly of flies){
+            fly.x = random(width);
+            fly.y = random(50,300);
+        }
+        for (let badFly of badFlies){
+            badFly.x = random(width);
+            badFly.y = random(50,300);
+        }
         frog.body.size = 200;
     }
 }
