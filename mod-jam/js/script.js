@@ -125,16 +125,34 @@ function draw() {
     for(let fly of flies){
         push();
         noStroke();
-        fill("black");
-        ellipse(fly.x, fly.y, fly.size);
+    
+        // Broccoli body
+        fill("green");
+        ellipse(fly.x, fly.y, fly.size, fly.size);
+    
+        // Broccoli stalk
+        fill("#7CFC00");
+        rect(fly.x - fly.size/6, fly.y + fly.size/2, fly.size/3, fly.size/2, 2);
+    
         pop();
     }
 
     for(let badFly of badFlies){
         push();
         noStroke();
-        fill("red");
-        ellipse(badFly.x, badFly.y, badFly.size);
+    
+        // Burger bun top
+        fill("#DEB887");
+        ellipse(badFly.x, badFly.y - badFly.size/6, badFly.size, badFly.size/4);
+    
+        // Burger patty
+        fill("#8B4513"); 
+        rect(badFly.x - badFly.size/2, badFly.y - badFly.size/12, badFly.size, badFly.size/6);
+    
+        // Burger bun bottom
+        fill("#DEB887");
+        ellipse(badFly.x, badFly.y + badFly.size/6, badFly.size, badFly.size/4);
+    
         pop();
     }
 
