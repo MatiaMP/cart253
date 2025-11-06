@@ -1,8 +1,8 @@
-# ART JAM
+# MOD JAMs
 
 MATIA PAKI
 
-[View this project online](URL_FOR_THE_RUNNING_PROJECT)
+[View this project online](https://matiamp.github.io/cart253/mod-jam/)
 
 ## Description
 
