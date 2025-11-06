@@ -117,6 +117,17 @@ function draw() {
 
     else if(gameState === "game"){
     background("#87ceeb");
+    push();
+    fill("darkgreen");
+    noStroke();
+    rect(0, height - 80, width, 80);
+    pop();
+    push();
+    fill("white");
+    ellipse(100, 80, 80, 50);
+    ellipse(150, 70, 60, 40);
+    ellipse(500, 50, 100, 60);
+    pop();
 
     for (let fly of flies){
         fly.x += fly.speed;
@@ -204,6 +215,17 @@ function drawScore(){
 
 function drawTitleScreen(){
     background("lightblue");
+    push();
+    fill("darkgreen");
+    noStroke();
+    rect(0, height - 80, width, 80);
+    pop();
+    push();
+    fill("white");
+    ellipse(100, 80, 80, 50);
+    ellipse(150, 70, 60, 40);
+    ellipse(500, 50, 100, 60);
+    pop();
     fill("green"); 
     textAlign(CENTER, CENTER);
     textFont('Lucida Console');
@@ -215,7 +237,7 @@ function drawTitleScreen(){
     text("USE LMB (LEFT MOUSE BUTTON) OR SPACEBAR TO USE TONGUE TO EAT", width / 2, height / 1.8);
     text("FIX THE FROG'S DIET BY EATING THE BROCCOLI", width / 2, height / 1.6);
     textSize(25);
-    text("CLICK SPACEBAR TO START", width / 2, height / 2 + 150);
+    text("CLICK SPACEBAR TO START", width / 2, height / 2 + 130);
 }
    
 function drawGameOver(){
