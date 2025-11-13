@@ -19,7 +19,19 @@ function setup() {
  * gradually lightening colour
  */
 function draw() {
-    background("pink");
+    background(0);
+    for (let x = 0; x <= width; x += 3){
+        const shade = map(x, 0, width, 0, 255);
+
+        push();
+        stroke(shade);
+        line(x, 0, x, height);
+        pop();
+
+       
+    }
+
+    //vertical lines
     
     let x = 0;
     let color = 0;
