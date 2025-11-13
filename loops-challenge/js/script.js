@@ -31,4 +31,16 @@ function draw() {
         x += separation;
         color += 25;
     }
+
+    //horizontal lines
+
+    let y = 0;
+    let horizontalColor = 0;
+
+    while (y <= height){
+        stroke(horizontalColor);
+        line(0, y, width, y);
+        y += separation;
+        horizontalColor += 25;
+    }
 }
