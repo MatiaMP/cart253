@@ -16,14 +16,14 @@ let langData = undefined;
 let lang = "fr";
 
 // Starts with the instruction
-let carName = "Click to generate a car name.";
+let carDinoName = "Click to generate a car-dino name.";
 
 /**
  * Load the car and dinosaur data
  */
 function preload() {
-    carData = loadJSON("cars.json");
-    dinosaurData = loadJSON("dinosaurs.json");
+    carData = loadJSON("assets/data/cars.json");
+    dinosaurData = loadJSON("assets/data/dinosaurs.json");
 }
 
 /**
@@ -43,7 +43,7 @@ function draw() {
     fill("pink");
     textAlign(CENTER, CENTER);
     textSize(32);
-    text(carName, width / 2, height / 2);
+    text(carDinoName, width / 2, height / 2);
     pop();
 }
 
@@ -51,5 +51,7 @@ function draw() {
  * Generate a new car name
  */
 function mousePressed() {
-
+    const car = random(carData.cars);
+    const dino = random(dinosaurData.dinosaurs);
+    carDinoName = car + " " + dino;
 }
