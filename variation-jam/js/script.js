@@ -1,36 +1,91 @@
+/**
+ * Variation Menu
+ * Pippin Barr
+ * 
+ * A relatively simple example of a set of variations within a single
+ * project. (When we learn Object-Oriented Programming this will be a
+ * LOT easier.)
+ */
+
 "use strict";
 
-// current state: "menu", "variation-jam-one", "variation-jam-two", "variation-jam-three"
 let state = "menu";
+let globalArcadeSong;
+let globalEatSoundEffect;
+let globalEwSoundEffect;
 
-// current variation object, holds its setup/draw/mouse/key functions
-let currentVariation = null;
-
-function setup() {
-    createCanvas(640, 480);
+function preload(){
+    globalArcadeSong = loadSound('assets/sounds/arcadeSong.mp3'); 
+    globalEatSoundEffect = loadSound('assets/sounds/yumyum.mp3');
+    globalEwSoundEffect = loadSound('assets/sounds/eww.mp3');
 }
 
+/**
+ * Create the canvas
+*/
+function setup() {
+    createCanvas(1000, 500);
+}
+
+
+/**
+ * Display the menu or the current variation
+*/
 function draw() {
-    switch(state) {
+    switch (state) {
         case "menu":
             menuDraw();
             break;
-        case "variation-jam-one":
-        case "variation-jam-two":
-        case "variation-jam-three":
-            if (currentVariation && currentVariation.draw) {
-                currentVariation.draw();
-            }
+        case "red-variation":
+            redDraw();
+            break
+        case "green-variation":
+            greenDraw();
+            break;
+        case "blue-variation":
+            blueDraw();
             break;
     }
 }
 
+/**
+ * Listen for mouse pressed and call the function for it in the
+ * current state
+ */
 function mousePressed() {
-    if (state === "menu") menuMousePressed();
-    else if (currentVariation && currentVariation.mousePressed) currentVariation.mousePressed();
+    switch (state) {
+        case "menu":
+            menuMousePressed();
+            break;
+        case "red-variation":
+            redMousePressed();
+            break
+        case "green-variation":
+            greenMousePressed();
+            break;
+        case "blue-variation":
+            blueMousePressed();
+            break;
+    }
 }
 
-function keyPressed() {
-    if (state === "menu") menuKeyPressed();
-    else if (currentVariation && currentVariation.keyPressed) currentVariation.keyPressed();
+/**
+ * Listen for keypressed and call the function for it in the
+ * current state
+ */
+function keyPressed(event) {
+    switch (state) {
+        case "menu":
+            menuKeyPressed(event);
+            break;
+        case "red-variation":
+            redKeyPressed(event);
+            break
+        case "green-variation":
+            greenKeyPressed(event);
+            break;
+        case "blue-variation":
+            blueKeyPressed(event);
+            break;
+    }
 }
