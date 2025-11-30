@@ -152,11 +152,11 @@ function greenDraw() {
     greenCheckCollisions();
 
     // Checks if win or lose depending on score
-    if(greenScore <= -5){
+    if(greenScore <= -20){
         greenGameState = "gameover";
     }
 
-    else if(greenScore >= 5){
+    else if(greenScore >= 20){
         greenGameState = "win";
     }
 }  
@@ -371,8 +371,8 @@ function greenCheckCollisions(){
         let greenFly = greenFlies[i];
         const d = dist(greenFrog.body.x, greenFrog.body.y, greenFly.x, greenFly.y);
         if(d < greenFrog.body.size/2 + greenFly.size/2){
-            greenScore++;
-            greenFrog.body.size -= 10;
+            greenScore += 2;
+            greenFrog.body.size -= 20;
             greenFly.x = random(width);
             greenFly.y = random(50,300);
             greenEatSoundEffect.play();
@@ -383,8 +383,8 @@ function greenCheckCollisions(){
         let badGreenFly = badGreenFlies[i];
         const d = dist(greenFrog.body.x, greenFrog.body.y, badGreenFly.x, badGreenFly.y);
         if(d < greenFrog.body.size/2 + badGreenFly.size/2){
-            greenScore--;
-            greenFrog.body.size += 25;
+            greenScore -= 1;
+            greenFrog.body.size += 15;
             badGreenFly.x = random(width);
             badGreenFly.y = random(50,300);
             greenEwSoundEffect.play();
