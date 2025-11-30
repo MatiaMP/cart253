@@ -11,6 +11,7 @@ let greenArcadeSong; // song playing in the background
 let greenScore = 0; // start score
 let greengreenFlyMovement = 0; // movement of greenFly, sine wave
 let greenFrogGreenOffsetX = 0; // allow frog to move with mouse + arrows
+let greenFrogGreenOffsetY = 0;
 let greenEatSoundEffect; // good sound effect when eats broccoli
 let greenEwSoundEffect; // bad sound effect when eat burger
 let greenEyeOffsetX; // x eye offset from the frog's body
@@ -143,11 +144,12 @@ function greenDraw() {
     }
 
     greenMoveFrog();
-    greenMoveTongue();
+    //greenMoveTongue();
     greenDrawFrog();   
-    greenCheckTonguegreenFlyOverlap();
-    greenCheckTonguebadGreenFlyOverlap();
+    //greenCheckTonguegreenFlyOverlap();
+    //greenCheckTonguebadGreenFlyOverlap();
     greenDrawScore();
+    greenCheckCollisions();
 
     // Checks if win or lose depending on score
     if(greenScore <= -5){
@@ -235,11 +237,14 @@ function greenMoveFrog() {
 
     if(keyIsDown(LEFT_ARROW)) greenFrogGreenOffsetX -= 10;
     if(keyIsDown(RIGHT_ARROW)) greenFrogGreenOffsetX += 10;
+    if(keyIsDown(UP_ARROW)) greenFrogGreenOffsetY -= 10;
+    if(keyIsDown(DOWN_ARROW)) greenFrogGreenOffsetY += 10;
 
     greenFrog.body.x = mouseX + greenFrogGreenOffsetX;
+    greenFrog.body.y = mouseY + greenFrogGreenOffsetY;
 }
 
-function greenMoveTongue() {
+/*function greenMoveTongue() {
     // Tongue matches the frog's x
     greenFrog.tongue.x = greenFrog.body.x;
     // If the tongue is idle, it doesn't do anything
@@ -263,6 +268,7 @@ function greenMoveTongue() {
         }
     }
 }
+*/
 
 function greenDrawFrog() {
     // Draw the tongue tip
@@ -317,7 +323,7 @@ function greenDrawFrog() {
 
 }
 
-function greenCheckTonguegreenFlyOverlap() {
+/*function greenCheckTonguegreenFlyOverlap() {
     for (let greenFly of greenFlies){
     // Get distance from tongue to greenFly
     const d = dist(greenFrog.tongue.x, greenFrog.tongue.y, greenFly.x, greenFly.y);
@@ -358,6 +364,34 @@ function greenCheckTonguebadGreenFlyOverlap(){
     }
     }
 }
+*/
+
+function greenCheckCollisions(){
+    for(let i = 0; i < greenFlies.length; i++){
+        let greenFly = greenFlies[i];
+        const d = dist(greenFrog.body.x, greenFrog.body.y, greenFly.x, greenFly.y);
+        if(d < greenFrog.body.size/2 + greenFly.size/2){
+            greenScore++;
+            greenFrog.body.size -= 10;
+            greenFly.x = random(width);
+            greenFly.y = random(50,300);
+            greenEatSoundEffect.play();
+        }
+    }
+
+    for(let i = 0; i < badGreenFlies.length; i++){
+        let badGreenFly = badGreenFlies[i];
+        const d = dist(greenFrog.body.x, greenFrog.body.y, badGreenFly.x, badGreenFly.y);
+        if(d < greenFrog.body.size/2 + badGreenFly.size/2){
+            greenScore--;
+            greenFrog.body.size += 25;
+            badGreenFly.x = random(width);
+            badGreenFly.y = random(50,300);
+            greenEwSoundEffect.play();
+        }
+    }
+}
+
 /**
  * This will be called whenever a key is pressed while the green variation is active
  */
