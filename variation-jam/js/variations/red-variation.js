@@ -8,7 +8,7 @@
 
 let redGameState = "title";
 let redArcadeSong; // song playing in the background
-let redScore = 0; // start score
+//let redScore = 0; // start score
 let redFlyMovement = 0; // movement of redFly, sine wave
 let redFrogRedOffsetX = 0; // allow frog to move with mouse + arrows
 let redEatSoundEffect; // good sound effect when eats broccoli
@@ -22,6 +22,7 @@ let redFly = redFlies[0]; // first redFly
 let redOffsetX = 0; // x offset for pupil to follow redFly
 let redOffsetY = 0; // y offset for pupil to follow redFly
 let redPupilSize; // size of pupils
+let redHealth = 50; // health bar
 
 // Our frog
 const redFrog = {
@@ -148,16 +149,24 @@ function redDraw() {
     redDrawFrog();   
     redCheckTongueredFlyOverlap();
     redCheckTonguebadRedFlyOverlap();
-    redDrawScore();
+    //redDrawScore();
+    redDrawHealthBar();
 
+    if(redHealth <= 0){
+        redGameState = "gameover";
+    }
+
+    else if(redHealth >= 100){
+        redGameState = "win";
+    }
     // Checks if win or lose depending on score
-    if(redScore <= -5){
+    /*if(redScore <= -5){
         redGameState = "gameover";
     }
 
     else if(redScore >= 5){
         redGameState = "win";
-    }
+    }*/
 }  
 
     else if (redGameState === "gameover"){
@@ -169,7 +178,7 @@ function redDraw() {
     }
 }
 
-function redDrawScore(){
+/*function redDrawScore(){
      //score
 
     fill("black");
@@ -178,6 +187,7 @@ function redDrawScore(){
     textAlign(LEFT, TOP);
     text("SCORE: " + redScore, 10, 10); 
 }
+*/
 
 function redDrawTitleScreen(){
     background("lightred");
@@ -330,7 +340,8 @@ function redCheckTongueredFlyOverlap() {
         redFly.y = random(50,300);
         // Bring back the tongue
         redFrog.tongue.state = "inbound";
-        redScore++;
+        redHealth += 10;
+        if(redHealth > 100) redHealth = 100;
 
         redFrog.body.size -= 10;
 
@@ -351,13 +362,28 @@ function redCheckTonguebadRedFlyOverlap(){
         badRedFly.y = random(50,300);
         // Bring back the tongue
         redFrog.tongue.state = "inbound";
-        redScore--;
+        redHealth -= 20;
+        if(redHealth < 0) redHealth = 0;
 
         redFrog.body.size += 25;
 
         redEwSoundEffect.play();
     }
     }
+}
+
+function redDrawHealthBar(){
+    push();
+    fill("gray");
+    rect(10,10,200,20,5);
+    fill("red");
+    let barWidth = map(redHealth, 0, 100, 0, 200);
+    rect(10,10,barWidth,20,5);
+    noFill();
+    stroke(0);
+    strokeWeight(2);
+    rect(10,10,200,20,5);
+    pop();
 }
 /**
  * This will be called whenever a key is pressed while the red variation is active
@@ -369,7 +395,7 @@ function redKeyPressed(event) {
 
     if(redGameState === "title" && key === " "){
         redGameState = "game";
-        redScore = 0;
+        //redScore = 0;
 
         
     if(redArcadeSong && !redArcadeSong.isPlaying()){
@@ -386,7 +412,10 @@ function redKeyPressed(event) {
 
     else if((redGameState === "gameover" || redGameState === "win") && key === " "){
         redGameState = "title";
-        redScore = 0;
+        //redScore = 0;
+
+        redHealth = 50;
+
         for(let redFly of redFlies){
             redFly.x = random(width);
             redFly.y = random(50,300);
