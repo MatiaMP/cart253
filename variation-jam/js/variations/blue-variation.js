@@ -22,6 +22,9 @@ let blueFly = blueFlies[0]; // first blueFly
 let blueOffsetX = 0; // x offset for pupil to follow blueFly
 let blueOffsetY = 0; // y offset for pupil to follow blueFly
 let bluePupilSize; // size of pupils
+let blueTimer = 30;
+let blueBossFly = null;
+let blueBossFlySpawned = false;
 
 // Our frog
 const blueFrog = {
@@ -147,14 +150,16 @@ function blueDraw() {
     blueDrawFrog();   
     blueCheckTongueblueFlyOverlap();
     blueCheckTongueBadblueFlyOverlap();
+    blueCheckTongueBossOverlap();
     blueDrawScore();
+    blueBossDraw();
 
     // Checks if win or lose depending on score
-    if(blueScore <= -5){
+    if(blueScore <= -15){
         blueGameState = "gameover";
     }
 
-    else if(blueScore >= 5){
+    else if(blueScore >= 15){
         blueGameState = "win";
     }
 }  
@@ -166,6 +171,44 @@ function blueDraw() {
     else if (blueGameState === "win"){
         blueDrawWin();
     }
+    
+    if(!blueBossFly && !blueBossFlySpawned && frameCount > 600){
+        blueBossFly = {
+            x: random(width),
+            y: random(50,200),
+            size: 50,
+            speedX: random(6,10),
+            speedY: random(5,8),
+    };
+
+    blueBossFlySpawned = true;
+}
+}
+
+function blueBossDraw(){
+    if(!blueBossFly) return;
+
+    //moves the boss
+    blueBossFly.x += blueBossFly.speedX;
+    blueBossFly.y += blueBossFly.speedY;
+
+    //bounces it off the edges
+    if(blueBossFly.x < 0 || blueBossFly.x > width) blueBossFly.speedX *= -1;
+    if(blueBossFly.y <0 || blueBossFly.y > height - 80) blueBossFly.speedY *= -1;
+
+    //draw boss
+    push();
+    translate(blueBossFly.x, blueBossFly.y);
+    fill("gold");
+    ellipse(0, 0, blueBossFly.size, blueBossFly.size);
+
+    fill("#32CD32");
+    ellipse(0, -blueBossFly.size * 0.5, blueBossFly.size * 0.7, blueBossFly.size * 0.2);
+    ellipse(-blueBossFly.size * 0.35, -blueBossFly.size * 0.35, blueBossFly.size * 0.5, blueBossFly.size * 0.15);
+    ellipse(blueBossFly.size * 0.35, -blueBossFly.size * 0.35, blueBossFly.size * 0.5, blueBossFly.size * 0.15);
+    ellipse(-blueBossFly.size * 0.25, -blueBossFly.size * 0.55, blueBossFly.size * 0.4, blueBossFly.size * 0.12);
+    ellipse(blueBossFly.size * 0.25, -blueBossFly.size * 0.55, blueBossFly.size * 0.4, blueBossFly.size * 0.12);
+    pop();
 }
 
 function blueDrawScore(){
@@ -356,6 +399,21 @@ function blueCheckTongueBadblueFlyOverlap(){
 
         blueEwSoundEffect.play();
     }
+    }
+}
+
+function blueCheckTongueBossOverlap(){
+    if(!blueBossFly) return;
+
+    const d = dist(blueFrog.tongue.x, blueFrog.tongue.y, blueBossFly.x, blueBossFly.y);
+    const eaten = (d < blueFrog.tongue.size/2 + blueBossFly.size/2);
+
+    if(eaten){
+        blueScore += 5;
+        blueBossFly = null;
+        blueFrog.tongue.state = "inbound";
+
+        blueEatSoundEffect.play();
     }
 }
 /**
