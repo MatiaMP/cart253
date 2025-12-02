@@ -23,6 +23,7 @@ let blueOffsetX = 0; // x offset for pupil to follow blueFly
 let blueOffsetY = 0; // y offset for pupil to follow blueFly
 let bluePupilSize; // size of pupils
 let blueTimer = 30;
+let lastTimerUpdate = 0;
 let blueBossFly = null;
 let blueBossFlySpawned = false;
 let blueBossMaxHealth = 3;
@@ -145,6 +146,18 @@ function blueDraw() {
         ellipse(badblueFly.x, badblueFly.y + badblueFly.size/6, badblueFly.size, badblueFly.size/4);
     
         pop();
+
+        if (millis() - lastTimerUpdate >= 1000){
+            blueTimer--;
+            lastTimerUpdate = millis();
+        }
+        if(blueTimer <= 0){
+            blueGameState = "gameover";
+        }
+
+        textSize(32);
+        fill(255, 0, 0);
+        text("Time: " + blueTimer, 20, 60);
     }
 
     blueMoveFrog();
@@ -445,6 +458,8 @@ function blueKeyPressed(event) {
     if(blueGameState === "title" && key === " "){
         blueGameState = "game";
         blueScore = 0;
+        blueTimer = 30;
+        lastTimerUpdate = millis();
 
         
     if(blueArcadeSong && !blueArcadeSong.isPlaying()){
@@ -462,6 +477,8 @@ function blueKeyPressed(event) {
     else if((blueGameState === "gameover" || blueGameState === "win") && key === " "){
         blueGameState = "title";
         blueScore = 0;
+        blueTimer = 30;
+        lastTimerUpdate = millis();
         for(let blueFly of blueFlies){
             blueFly.x = random(width);
             blueFly.y = random(50,300);
