@@ -25,6 +25,8 @@ let bluePupilSize; // size of pupils
 let blueTimer = 30;
 let blueBossFly = null;
 let blueBossFlySpawned = false;
+let blueBossMaxHealth = 3;
+let blueBossCurrentHealth = blueBossMaxHealth;
 
 // Our frog
 const blueFrog = {
@@ -181,6 +183,7 @@ function blueDraw() {
             speedY: random(5,8),
     };
 
+    blueBossCurrentHealth = blueBossMaxHealth;
     blueBossFlySpawned = true;
 }
 }
@@ -209,6 +212,17 @@ function blueBossDraw(){
     ellipse(-blueBossFly.size * 0.25, -blueBossFly.size * 0.55, blueBossFly.size * 0.4, blueBossFly.size * 0.12);
     ellipse(blueBossFly.size * 0.25, -blueBossFly.size * 0.55, blueBossFly.size * 0.4, blueBossFly.size * 0.12);
     pop();
+
+    if(blueBossFly){
+        push();
+        fill("red");
+        rectMode(CENTER);
+        let healthBarWidth = blueBossFly.size;
+        let HealthBarHeight = 5;
+        let healthRatio = blueBossCurrentHealth / blueBossMaxHealth;
+        rect(blueBossFly.x, blueBossFly.y - blueBossFly.size, healthBarWidth * healthRatio, HealthBarHeight);
+        pop();
+    }
 }
 
 function blueDrawScore(){
@@ -406,12 +420,16 @@ function blueCheckTongueBossOverlap(){
     if(!blueBossFly) return;
 
     const d = dist(blueFrog.tongue.x, blueFrog.tongue.y, blueBossFly.x, blueBossFly.y);
-    const eaten = (d < blueFrog.tongue.size/2 + blueBossFly.size/2);
+    const hit = (d < blueFrog.tongue.size/2 + blueBossFly.size/2);
 
-    if(eaten){
+    if(hit){
+        blueBossCurrentHealth--;
+        blueFrog.tongue.state = "inbound";
+    }
+
+    if(blueBossCurrentHealth <= 0){
         blueScore += 5;
         blueBossFly = null;
-        blueFrog.tongue.state = "inbound";
 
         blueEatSoundEffect.play();
     }
