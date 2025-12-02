@@ -23,6 +23,13 @@ let redOffsetX = 0; // x offset for pupil to follow redFly
 let redOffsetY = 0; // y offset for pupil to follow redFly
 let redPupilSize; // size of pupils
 let redHealth = 50; // health bar
+let redWave = 1;
+let redWaveTimer = 30;
+let redLastWaveUpdate = 0;
+let waveData;
+let waveDataLoaded;
+let redWaveAnnouncement = "";
+let redAnnouncementTimer = 0;
 
 // Our frog
 const redFrog = {
@@ -52,6 +59,12 @@ function redSetup() {
     redEatSoundEffect = globalEatSoundEffect;
     redEwSoundEffect = globalEwSoundEffect;
 
+    loadJSON("assets/data/waves.json", function(data){
+        waveData = data;
+        waveDataLoaded = true;
+        console.log(waveData);
+    });
+
     // Creates good redFlies aka broccoli
     for (let i = 0; i < 2; i++){
         redFlies.push({
@@ -76,11 +89,44 @@ function redSetup() {
  * This will be called every frame when the red variation is active
  */
 function redDraw() {
+    if(!waveDataLoaded){
+        background(100);
+        fill(255);
+        textSize(20);
+        textAlign(CENTER, CENTER);
+        text("Loading data...", width/2, height/2);
+        return;
+    }
+
+
     if(redGameState === "title"){
         redDrawTitleScreen();
     }
 
     else if(redGameState === "game"){
+    
+    if(millis() - redLastWaveUpdate >= 500){
+        redWaveTimer--;
+        redLastWaveUpdate = millis();
+    }
+
+    if(redWaveTimer <= 0){
+        redWave++;
+        redWaveTimer = 30;
+
+        let currentWave = waveData[redWave - 1];
+
+        if(!currentWave){
+            redWave = waveData.length;
+        }
+
+        else{
+            redUpdateFlySpeed();
+
+            redWaveAnnouncement = currentWave.announcement;
+            redAnnouncementTimer = 100;
+        }
+    }
     background("#87ceeb");
     // Ground
     push();
@@ -95,6 +141,15 @@ function redDraw() {
     ellipse(150, 70, 60, 40);
     ellipse(500, 50, 100, 60);
     pop();
+
+    if (redAnnouncementTimer > 0) {
+    fill("red");
+    textAlign(CENTER, CENTER);
+    textSize(30);
+    text(redWaveAnnouncement, width / 2, 50);
+    redAnnouncementTimer--;
+    }
+
     // Move redFlies aka broccoli
     for (let redFly of redFlies){
         redFly.x += redFly.speed;
@@ -151,6 +206,7 @@ function redDraw() {
     redCheckTonguebadRedFlyOverlap();
     //redDrawScore();
     redDrawHealthBar();
+    redUpdateFlySpeed();
 
     if(redHealth <= 0){
         redGameState = "gameover";
@@ -176,6 +232,7 @@ function redDraw() {
     else if (redGameState === "win"){
         redDrawWin();
     }
+
 }
 
 /*function redDrawScore(){
@@ -385,6 +442,35 @@ function redDrawHealthBar(){
     rect(10,10,200,20,5);
     pop();
 }
+
+function redUpdateFlySpeed(){
+    if (!waveData || redWave > waveData.length) return;
+
+    let currentWave = waveData[redWave - 1];
+
+    for (let redFly of redFlies){
+        redFly.speed = 2 + redWave * 0.5;
+    }
+    
+    if (badRedFlies.length < currentWave.badFlyCount){
+        for(let i = badRedFlies.length; i < currentWave.badFlyCount; i++){
+            badRedFlies.push({
+                x: random(width),
+                y: random(50,300),
+                size: 40,
+                speed: currentWave.badFlySpeed
+            });
+        }
+    }
+
+    else if (badRedFlies.length > currentWave.badFlyCount){
+        badRedFlies.splice(currentWave.badFlyCount);
+    }
+
+    for (let badRedFly of badRedFlies){
+        badRedFly.speed = currentWave.badFlySpeed;
+    }
+}
 /**
  * This will be called whenever a key is pressed while the red variation is active
  */
@@ -393,7 +479,7 @@ function redKeyPressed(event) {
         state = "menu";
     }
 
-    if(redGameState === "title" && key === " "){
+    if(redGameState === "title" && key === " " && waveDataLoaded){
         redGameState = "game";
         //redScore = 0;
 

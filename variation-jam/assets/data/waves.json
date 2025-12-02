@@ -1,0 +1,6 @@
+
+[
+{"wave": 1, "badFlyCount": 5, "badFlySpeed": 3, "announcement": "WAVE 1 HAS STARTED"},
+{"wave": 2, "badFlyCount": 7, "badFlySpeed": 5, "announcement": "WAVE 2 HAS STARTED"},
+{"wave": 3, "badFlyCount": 9, "badFlySpeed": 7, "announcement": "WAVE 3 HAS STARTED"}
+]
