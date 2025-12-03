@@ -502,6 +502,15 @@ function redKeyPressed(event) {
 
         redHealth = 50;
 
+        redWave = 1;
+        redWaveTimer = 30;
+        redLastWaveUpdate = millis(); 
+        redWaveAnnouncement = waveData[0].announcement;
+        redAnnouncementTimer = 100;
+
+        badRedFlies = [];
+        redUpdateFlySpeed();
+
         for(let redFly of redFlies){
             redFly.x = random(width);
             redFly.y = random(50,300);
