@@ -5,21 +5,35 @@
  */
 
 const menuText = `
-(R) Red variation
-(G) Green variation
-(B) Blue variation`
+Press 1 for Waves
+Press 2 for Mitosis
+Press 3 for Boss Mode`
 
 /**
  * Display the main menu
  */
 function menuDraw() {
-    background(0);
+    background("grey");
 
     push();
+    textAlign(CENTER, CENTER);
+
+    fill(255);
+    textSize(60);
+    text("🐸 FROG ON A DIET 🐸", width / 2, height / 2 - 200);
+
+    fill(200);
+    textSize(26);
+    text("Choose A Game Mode", width / 2, height / 2 - 140);
+
     fill(255);
     textSize(32);
-    textAlign(CENTER, CENTER);
     text(menuText, width / 2, height / 2);
+
+    fill(180);
+    textSize(20);
+    text("Press 1, 2, or 3 to begin", width / 2, height - 60);
+
     pop();
 }
 
@@ -28,17 +42,17 @@ function menuDraw() {
  */
 function menuKeyPressed(event) {
     switch (event.keyCode) {
-        case 82:
+        case 49:
             state = "red-variation";
             redSetup();
             break;
 
-        case 71:
+        case 50:
             state = "green-variation";
             greenSetup();
             break;
 
-        case 66:
+        case 51:
             state = "blue-variation";
             blueSetup();
             break;
