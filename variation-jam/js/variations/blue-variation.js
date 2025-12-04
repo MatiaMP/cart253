@@ -168,6 +168,7 @@ function blueDraw() {
     blueCheckTongueBossOverlap();
     blueDrawScore();
     blueBossDraw();
+    blueCheckBossFrogOverlap();
 
     // Checks if win or lose depending on score
     if(blueScore <= -15){
@@ -447,6 +448,19 @@ function blueCheckTongueBossOverlap(){
         blueEatSoundEffect.play();
     }
 }
+
+function blueCheckBossFrogOverlap(){
+    if(!blueBossFly) return;
+
+    const d = dist(blueBossFly.x, blueBossFly.y, blueFrog.body.x, blueFrog.body.y);
+    const hit = (d<blueBossFly.size/2 + blueFrog.body.size/2);
+
+    if(hit && frameCount % 30 === 0){
+        blueScore -=5;
+        blueFrog.body.size += 50;
+        blueEwSoundEffect.play();
+    }
+}
 /**
  * This will be called whenever a key is pressed while the blue variation is active
  */
@@ -488,6 +502,9 @@ function blueKeyPressed(event) {
             badblueFly.y = random(50,300);
         }
         blueFrog.body.size = 200;
+
+        blueBossFlySpawned = false;
+        blueBossFly = null;
     }
 }
 
