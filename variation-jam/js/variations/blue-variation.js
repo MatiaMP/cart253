@@ -192,7 +192,7 @@ function blueDraw() {
         blueBossFly = {
             x: random(width),
             y: random(50,200),
-            size: 50,
+            size: 75,
             speedX: random(6,10),
             speedY: random(5,8),
     };
@@ -216,7 +216,7 @@ function blueBossDraw(){
     //draw boss
     push();
     translate(blueBossFly.x, blueBossFly.y);
-    fill("gold");
+    fill("red");
     ellipse(0, 0, blueBossFly.size, blueBossFly.size);
 
     fill("#32CD32");
@@ -452,8 +452,10 @@ function blueCheckTongueBossOverlap(){
 function blueCheckBossFrogOverlap(){
     if(!blueBossFly) return;
 
+    const collisionHitbox = 50;
+
     const d = dist(blueBossFly.x, blueBossFly.y, blueFrog.body.x, blueFrog.body.y);
-    const hit = (d<blueBossFly.size/2 + blueFrog.body.size/2);
+    const hit = (d<blueBossFly.size/2 + blueFrog.body.size/2 + collisionHitbox);
 
     if(hit && frameCount % 30 === 0){
         blueScore -=5;
