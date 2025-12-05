@@ -66,7 +66,7 @@ function redSetup() {
     });
 
     // Creates good redFlies aka broccoli
-    for (let i = 0; i < 2; i++){
+    for (let i = 0; i < 3; i++){
         redFlies.push({
             x: random(width),
             y: random(50,300),
@@ -75,11 +75,11 @@ function redSetup() {
         })
     }
     // Creates bad redFlies aka burgers
-    for (let i = 0; i < 5; i++){
+    for (let i = 0; i < 10; i++){
         badRedFlies.push({
             x: random(width),
             y: random(50,300),
-            size: 40,
+            size: 50,
             speed: random(3,5)
         })
     }
@@ -105,7 +105,7 @@ function redDraw() {
 
     else if(redGameState === "game"){
     
-    if(millis() - redLastWaveUpdate >= 500){
+    if(millis() - redLastWaveUpdate >= 200){
         redWaveTimer--;
         redLastWaveUpdate = millis();
     }
@@ -269,6 +269,7 @@ function redDrawTitleScreen(){
     text("MOVE THE FROG WITH MOUSE OR ARROW KEYS", width / 2, height / 2);
     text("USE LMB (LEFT MOUSE BUTTON) OR SPACEBAR TO USE TONGUE TO EAT", width / 2, height / 1.8);
     text("FIX THE FROG'S DIET BY EATING THE BROCCOLI", width / 2, height / 1.6);
+    text("THERE ARE 3 WAVES, EACH WAVE INCREASES THE DIFFICULTY", width / 2, height / 1.5);
     textSize(25);
     text("CLICK SPACEBAR TO START", width / 2, height / 2 + 130);
 }

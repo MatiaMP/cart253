@@ -172,12 +172,15 @@ function greenDraw() {
 
 function greenDrawScore(){
      //score
-
+    push();
     fill("black");
+    stroke(0);
+    strokeWeight(4);
     textSize(30);
     textStyle(BOLD);
     textAlign(LEFT, TOP);
     text("SCORE: " + greenScore, 10, 10); 
+    pop();
 }
 
 function greenDrawTitleScreen(){
@@ -186,13 +189,11 @@ function greenDrawTitleScreen(){
     fill("darkgreen");
     noStroke();
     rect(0, height - 80, width, 80);
-    pop();
     push();
     fill("white");
     ellipse(100, 80, 80, 50);
     ellipse(150, 70, 60, 40);
     ellipse(500, 50, 100, 60);
-    pop();
     fill("green"); 
     textAlign(CENTER, CENTER);
     textFont('Lucida Console');
@@ -201,14 +202,16 @@ function greenDrawTitleScreen(){
     textSize(15);
     fill("darkgreen");
     text("MOVE THE FROG WITH MOUSE OR ARROW KEYS", width / 2, height / 2);
-    text("USE LMB (LEFT MOUSE BUTTON) OR SPACEBAR TO USE TONGUE TO EAT", width / 2, height / 1.8);
+    text("EAT BY ABSORBING THE FOOD", width / 2, height / 1.8);
     text("FIX THE FROG'S DIET BY EATING THE BROCCOLI", width / 2, height / 1.6);
     textSize(25);
     text("CLICK SPACEBAR TO START", width / 2, height / 2 + 130);
+    pop();
 }
 
 // Draws the game over screen
 function greenDrawGameOver(){
+    push();
     background("#000000");
     fill("red");
     textAlign(CENTER, CENTER);
@@ -218,10 +221,12 @@ function greenDrawGameOver(){
     fill("white");
     text("YOU RUINED THE FROG'S DIET", width / 2, height / 2 + 60);
     text("PRESS THE SPACEBAR TO GO BACK TO THE START SCREEN", width / 2, height /  2 + 90);
+    pop();
 }
 
 function greenDrawWin(){
     background("lightgreen");
+    push();
     fill("green");
     textAlign(CENTER, CENTER);
     textSize(40);
@@ -230,6 +235,7 @@ function greenDrawWin(){
     fill("white");
     text("SUCCESS", width / 2, height / 2 + 60);
     text("PRESS THE SPACEBAR TO GO BACK TO THE START SCREEN", width / 2, height /  2 + 90);
+    pop();
 }
 
 function greenMoveFrog() {

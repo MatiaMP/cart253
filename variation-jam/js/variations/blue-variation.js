@@ -146,18 +146,6 @@ function blueDraw() {
         ellipse(badblueFly.x, badblueFly.y + badblueFly.size/6, badblueFly.size, badblueFly.size/4);
     
         pop();
-
-        if (millis() - lastTimerUpdate >= 1000){
-            blueTimer--;
-            lastTimerUpdate = millis();
-        }
-        if(blueTimer <= 0){
-            blueGameState = "gameover";
-        }
-
-        textSize(32);
-        fill(255, 0, 0);
-        text("Time: " + blueTimer, 20, 60);
     }
 
     blueMoveFrog();
@@ -169,6 +157,7 @@ function blueDraw() {
     blueDrawScore();
     blueBossDraw();
     blueCheckBossFrogOverlap();
+    blueDrawTimer();
 
     // Checks if win or lose depending on score
     if(blueScore <= -15){
@@ -202,6 +191,25 @@ function blueDraw() {
 }
 }
 
+function blueDrawTimer(){
+    if (millis() - lastTimerUpdate >= 1000){
+        blueTimer--;
+        lastTimerUpdate = millis();
+    }
+    if(blueTimer <= 0){
+         blueGameState = "gameover";
+    }
+    push();
+    fill(255);
+    stroke(0);
+    strokeWeight(4);
+    textSize(32);
+    fill(255, 0, 0);
+    textAlign(RIGHT, TOP);
+    text("Time: " + blueTimer, width - 20, 60);
+    pop();
+}
+
 function blueBossDraw(){
     if(!blueBossFly) return;
 
@@ -212,6 +220,15 @@ function blueBossDraw(){
     //bounces it off the edges
     if(blueBossFly.x < 0 || blueBossFly.x > width) blueBossFly.speedX *= -1;
     if(blueBossFly.y <0 || blueBossFly.y > height - 80) blueBossFly.speedY *= -1;
+
+    push();
+    translate(blueBossFly.x, blueBossFly.y);
+    let bossAura = blueBossFly.size + 20 * sin(frameCount * 0.2);
+
+    fill(255,215,0,150);
+    noStroke();
+    ellipse(0,0, bossAura, bossAura);
+    pop();
 
     //draw boss
     push();
@@ -242,11 +259,15 @@ function blueBossDraw(){
 function blueDrawScore(){
      //score
 
+    push();
     fill("black");
+    stroke(0);
+    strokeWeight(4);
     textSize(30);
     textStyle(BOLD);
     textAlign(LEFT, TOP);
-    text("SCORE: " + blueScore, 10, 10); 
+    text("SCORE: " + blueScore, 10, 10);
+    pop();
 }
 
 function blueDrawTitleScreen(){
@@ -263,15 +284,20 @@ function blueDrawTitleScreen(){
     ellipse(500, 50, 100, 60);
     pop();
     fill("blue"); 
+    noStroke();
     textAlign(CENTER, CENTER);
     textFont('Lucida Console');
     textSize(60);
     text("FROG ON A DIET", width / 2, height / 2 - 60);
-    textSize(15);
+    textSize(10);
     fill("darkblue");
     text("MOVE THE FROG WITH MOUSE OR ARROW KEYS", width / 2, height / 2);
     text("USE LMB (LEFT MOUSE BUTTON) OR SPACEBAR TO USE TONGUE TO EAT", width / 2, height / 1.8);
-    text("FIX THE FROG'S DIET BY EATING THE BROCCOLI", width / 2, height / 1.6);
+    text("FIX THE FROG'S DIET BY EATING THE BROCCOLI BUT WATCHOUT FOR THE BOSS, EAT THE BOSS TO GAIN 5 POINTS, AVOID GETTING HIT BY IT OR LOSE 5 POINTS", width / 2, height / 1.6);
+    fill("red");
+    textSize(15);
+    text("30 SECOND TIMER", width /2, height / 1.45);
+    fill("black");
     textSize(25);
     text("CLICK SPACEBAR TO START", width / 2, height / 2 + 130);
 }
