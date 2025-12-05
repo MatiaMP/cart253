@@ -4,6 +4,9 @@
  * This keeps the stuff the menu needs to do *separate* from the rest of the program.
  */
 
+/**
+ * This game is a version of the frog game I made. But in this variation, there is a timer that was added of 30 seconds as well as a boss that spawns, it takes 3 tongue hits to eat the boss which will give the user 5 points. If the boss hits the frog, it will deduct 5 points. The user wins at 15 points and loses at -15 points.
+ */
 "use strict";
 
 let blueGameState = "title";
@@ -22,12 +25,12 @@ let blueFly = blueFlies[0]; // first blueFly
 let blueOffsetX = 0; // x offset for pupil to follow blueFly
 let blueOffsetY = 0; // y offset for pupil to follow blueFly
 let bluePupilSize; // size of pupils
-let blueTimer = 30;
-let lastTimerUpdate = 0;
-let blueBossFly = null;
-let blueBossFlySpawned = false;
-let blueBossMaxHealth = 3;
-let blueBossCurrentHealth = blueBossMaxHealth;
+let blueTimer = 30; // how long the game lasts
+let lastTimerUpdate = 0; // stores time
+let blueBossFly = null; // boss attributes null when isnt spawned
+let blueBossFlySpawned = false; //boss appears once
+let blueBossMaxHealth = 3; // max boss health, 3 hits
+let blueBossCurrentHealth = blueBossMaxHealth; // boss health
 
 // Our frog
 const blueFrog = {
@@ -213,14 +216,15 @@ function blueDrawTimer(){
 function blueBossDraw(){
     if(!blueBossFly) return;
 
-    //moves the boss
+    // moves the boss
     blueBossFly.x += blueBossFly.speedX;
     blueBossFly.y += blueBossFly.speedY;
 
-    //bounces it off the edges
+    // bounces it off the edges
     if(blueBossFly.x < 0 || blueBossFly.x > width) blueBossFly.speedX *= -1;
     if(blueBossFly.y <0 || blueBossFly.y > height - 80) blueBossFly.speedY *= -1;
 
+    // draws boss aura (little yellow pulse)
     push();
     translate(blueBossFly.x, blueBossFly.y);
     let bossAura = blueBossFly.size + 20 * sin(frameCount * 0.2);
@@ -230,7 +234,7 @@ function blueBossDraw(){
     ellipse(0,0, bossAura, bossAura);
     pop();
 
-    //draw boss
+    // draw boss
     push();
     translate(blueBossFly.x, blueBossFly.y);
     fill("red");
@@ -256,6 +260,7 @@ function blueBossDraw(){
     }
 }
 
+// draws score
 function blueDrawScore(){
      //score
 
@@ -270,6 +275,7 @@ function blueDrawScore(){
     pop();
 }
 
+// draws title screen
 function blueDrawTitleScreen(){
     background("lightblue");
     push();
@@ -315,6 +321,7 @@ function blueDrawGameOver(){
     text("PRESS THE SPACEBAR TO GO BACK TO THE START SCREEN", width / 2, height /  2 + 90);
 }
 
+// draws win screen
 function blueDrawWin(){
     background("lightblue");
     fill("blue");
@@ -327,6 +334,7 @@ function blueDrawWin(){
     text("PRESS THE SPACEBAR TO GO BACK TO THE START SCREEN", width / 2, height /  2 + 90);
 }
 
+// frog movement
 function blueMoveFrog() {
     blueFrog.body.x = mouseX;
 
@@ -336,6 +344,7 @@ function blueMoveFrog() {
     blueFrog.body.x = mouseX + blueFrogBlueOffsetX;
 }
 
+// tongue movement
 function blueMoveTongue() {
     // Tongue matches the frog's x
     blueFrog.tongue.x = blueFrog.body.x;
@@ -361,6 +370,7 @@ function blueMoveTongue() {
     }
 }
 
+// draws drog
 function blueDrawFrog() {
     // Draw the tongue tip
     push();
@@ -414,6 +424,7 @@ function blueDrawFrog() {
 
 }
 
+// checks if tongue overlaps fly, if it does it will eat
 function blueCheckTongueblueFlyOverlap() {
     for (let blueFly of blueFlies){
     // Get distance from tongue to blueFly
@@ -435,6 +446,7 @@ function blueCheckTongueblueFlyOverlap() {
     }
 }
 
+// checks if tongue overlaps bad fly, if so it will eat it
 function blueCheckTongueBadblueFlyOverlap(){
     for (let badblueFly of badBlueFlies){
         const d = dist(blueFrog.tongue.x, blueFrog.tongue.y, badblueFly.x, badblueFly.y);
@@ -456,6 +468,7 @@ function blueCheckTongueBadblueFlyOverlap(){
     }
 }
 
+// checks if tongue will overlap the boss, if so it will either damage or eat it
 function blueCheckTongueBossOverlap(){
     if(!blueBossFly) return;
 
@@ -475,6 +488,7 @@ function blueCheckTongueBossOverlap(){
     }
 }
 
+// checks if boss overlaps frog, if so it will hurt the score
 function blueCheckBossFrogOverlap(){
     if(!blueBossFly) return;
 

@@ -4,6 +4,10 @@
  * This keeps the stuff the menu needs to do *separate* from the rest of the program.
  */
 
+/**
+ * This game is a version of the frog game I made. But in this variation, there is a hunger/health bar to determine the score. Once the health bar is filled, the user wins, when the health bar is empty, the user loses. There is also waves of difficulty now. The first wave is normal gameplay. Wave 2 means the food moves faster across the screen and Wave 3 means the food moves even faster than in Wave 3.
+ */
+
 "use strict";
 
 let redGameState = "title";
@@ -23,13 +27,13 @@ let redOffsetX = 0; // x offset for pupil to follow redFly
 let redOffsetY = 0; // y offset for pupil to follow redFly
 let redPupilSize; // size of pupils
 let redHealth = 50; // health bar
-let redWave = 1;
-let redWaveTimer = 30;
-let redLastWaveUpdate = 0;
-let waveData;
-let waveDataLoaded;
-let redWaveAnnouncement = "";
-let redAnnouncementTimer = 0;
+let redWave = 1; // tracks wave number
+let redWaveTimer = 30; // timer for waves
+let redLastWaveUpdate = 0; // wave update
+let waveData; // waves.json data
+let waveDataLoaded; // waves.json is loaded
+let redWaveAnnouncement = ""; // text for announcements
+let redAnnouncementTimer = 0; // how long the announcement is displayed
 
 // Our frog
 const redFrog = {
@@ -59,6 +63,7 @@ function redSetup() {
     redEatSoundEffect = globalEatSoundEffect;
     redEwSoundEffect = globalEwSoundEffect;
 
+    // loads external json file with wave data
     loadJSON("assets/data/waves.json", function(data){
         waveData = data;
         waveDataLoaded = true;
@@ -104,12 +109,14 @@ function redDraw() {
     }
 
     else if(redGameState === "game"){
-    
+
+    // timer update
     if(millis() - redLastWaveUpdate >= 200){
         redWaveTimer--;
         redLastWaveUpdate = millis();
     }
 
+    // transition for next wave
     if(redWaveTimer <= 0){
         redWave++;
         redWaveTimer = 30;
@@ -246,6 +253,7 @@ function redDraw() {
 }
 */
 
+// draws title screen
 function redDrawTitleScreen(){
     background("lightred");
     push();
@@ -287,6 +295,7 @@ function redDrawGameOver(){
     text("PRESS THE SPACEBAR TO GO BACK TO THE START SCREEN", width / 2, height /  2 + 90);
 }
 
+// draws win screen
 function redDrawWin(){
     background("lightred");
     fill("red");
@@ -299,6 +308,7 @@ function redDrawWin(){
     text("PRESS THE SPACEBAR TO GO BACK TO THE START SCREEN", width / 2, height /  2 + 90);
 }
 
+// frog movement
 function redMoveFrog() {
     redFrog.body.x = mouseX;
 
@@ -308,6 +318,7 @@ function redMoveFrog() {
     redFrog.body.x = mouseX + redFrogRedOffsetX;
 }
 
+// tongue movement
 function redMoveTongue() {
     // Tongue matches the frog's x
     redFrog.tongue.x = redFrog.body.x;
@@ -333,6 +344,7 @@ function redMoveTongue() {
     }
 }
 
+// draws frog
 function redDrawFrog() {
     // Draw the tongue tip
     push();
@@ -386,6 +398,7 @@ function redDrawFrog() {
 
 }
 
+// checks if tongue overlaps fly
 function redCheckTongueredFlyOverlap() {
     for (let redFly of redFlies){
     // Get distance from tongue to redFly
@@ -408,6 +421,7 @@ function redCheckTongueredFlyOverlap() {
     }
 }
 
+// checks if tongue overlaps bad fly
 function redCheckTonguebadRedFlyOverlap(){
     for (let badRedFly of badRedFlies){
         const d = dist(redFrog.tongue.x, redFrog.tongue.y, badRedFly.x, badRedFly.y);
@@ -430,6 +444,7 @@ function redCheckTonguebadRedFlyOverlap(){
     }
 }
 
+// draws health bar/hunger bar
 function redDrawHealthBar(){
     push();
     fill("gray");
@@ -444,6 +459,7 @@ function redDrawHealthBar(){
     pop();
 }
 
+// updates fly speed per wave
 function redUpdateFlySpeed(){
     if (!waveData || redWave > waveData.length) return;
 

@@ -4,6 +4,9 @@
  * This keeps the stuff the menu needs to do *separate* from the rest of the program.
  */
 
+/**
+ * This game is a version of the frog game I made. But in this variation, instead of using its tongue to eat, the user must use the frogs body to interact with the food. The user must reach a score of 20 to win, and -20 to lose. Move around with the arrow keys or with the mouse.
+ */
 "use strict";
 
 let greenGameState = "title";
